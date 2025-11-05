@@ -23,7 +23,9 @@ public class TeacherDaoImpl implements TeacherDao {
     public Teacher createNewTeacher(Teacher teacher) {
         //YOUR CODE STARTS HERE
 
-        return null;
+        String sql = "INSERT INTO teacher (tFName, tLName, dept) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, teacher.getTeacherFName(), teacher.getTeacherLName(), teacher.getDept());
+        return teacher;
 
         //YOUR CODE ENDS HERE
     }
@@ -32,7 +34,8 @@ public class TeacherDaoImpl implements TeacherDao {
     public List<Teacher> getAllTeachers() {
         //YOUR CODE STARTS HERE
 
-        return null;
+        String sql = "SELECT * FROM teacher;";
+        return jdbcTemplate.query(sql, new TeacherMapper());
 
         //YOUR CODE ENDS HERE
     }
@@ -41,7 +44,9 @@ public class TeacherDaoImpl implements TeacherDao {
     public Teacher findTeacherById(int id) {
         //YOUR CODE STARTS HERE
 
-        return null;
+        String sql = "SELECT * FROM teacher WHERE tid = ?;";
+        return jdbcTemplate.queryForObject(sql, new TeacherMapper(), id);
+
 
         //YOUR CODE ENDS HERE
     }
@@ -50,6 +55,8 @@ public class TeacherDaoImpl implements TeacherDao {
     public void updateTeacher(Teacher t) {
         //YOUR CODE STARTS HERE
 
+        String sql = "UPDATE teacher SET tFName = ?, tLName = ?, dept = ? WHERE tid = ?;";
+        jdbcTemplate.update(sql, t.getTeacherFName(), t.getTeacherLName(), t.getDept(), t.getTeacherId());
 
         //YOUR CODE ENDS HERE
     }
@@ -58,6 +65,8 @@ public class TeacherDaoImpl implements TeacherDao {
     public void deleteTeacher(int id) {
         //YOUR CODE STARTS HERE
 
+        String sql = "DELETE FROM teacher WHERE tid = ?";
+        jdbcTemplate.update(sql, id);
 
         //YOUR CODE ENDS HERE
     }
